@@ -6,6 +6,28 @@ cordova-screenshot
 
 The Screenshot plugin allows your application to take screenshots of the current screen and save them into the phone.
 
+
+## Carbonaut's fork
+
+This is a fork from the original project with the goal of keep using it on ios 13 and 14, keeping it up to date with Apple's privacy policy regarding photo library usage.
+
+These are the changes that were made (on Screenshot.m):
+
+Under `saveScreenshot` method, change the following lines:
+
+```
+UIImage *image = [self getScreenshot];
+NSData *imageData = UIImageJPEGRepresentation(image,[quality floatValue]);
+[imageData writeToFile:jpgPath atomically:NO];
+```
+
+to
+
+```
+UIImage *image = [self getScreenshot];
+UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+```
+
 ## how to install
 
 install it via cordova cli
